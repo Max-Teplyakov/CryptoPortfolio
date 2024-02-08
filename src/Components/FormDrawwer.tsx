@@ -164,7 +164,7 @@ const FormDrawwer = ({
         style={{ maxWidth: 600 }}
         initialValues={{ price: +coin.price.toFixed(2) }}
         onFinish={onFinish}
-        validateMessage={validateMessage}
+        // validateMessage={validateMessage}
       >
         <Form.Item<FieldType>
           label="Amount"

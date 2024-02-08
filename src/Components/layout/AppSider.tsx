@@ -15,8 +15,8 @@ const siderStyle: React.CSSProperties = {
 };
 
 export default function AppSider({ isLoading, myCoin }) {
-  const myCrypt = useSelector((state: IMyCoin) => state.myCrypto);
-  console.log(myCoin);
+  // const myCrypt = useSelector((state: IMyCoin) => state.myCrypto);
+  // console.log(myCoin);
   if (isLoading) return <Spin fullscreen />;
   return (
     <Layout.Sider width="25%" style={siderStyle}>
