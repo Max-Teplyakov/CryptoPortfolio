@@ -5,7 +5,8 @@ import AppContent from "./Components/layout/AppContent";
 import AppSider from "./Components/layout/AppSider";
 import { FetchAssets, fakeFetchCrypto } from "./api";
 import { percentDifference } from "./utils";
-import { IMyCoinFull } from "./interfaces";
+import { IMyCoin, IMyCoinFull } from "./interfaces";
+import { useSelector } from "react-redux";
 
 const initialState: IMyCoinFull = {
   id: "",
@@ -22,10 +23,11 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [crypto, setCrypto] = useState([]);
   const [myCoin, setMyCoin] = useState<IMyCoinFull[]>([initialState]);
-  console.log(myCoin);
-  function addAsset(newAsset: IMyCoinFull) {
-    setMyCoin((prev) => mapAssets([...prev, newAsset], crypto));
-  }
+  // function addAsset(newAsset: IMyCoinFull) {
+  //   setMyCoin((prev) => mapAssets([...prev, newAsset], crypto));
+  // }
+  const myCrypt = useSelector((state: IMyCoin) => state.myCrypto.myCrypto);
+  console.log(myCrypt);
 
   function mapAssets(assets, result) {
     return assets.map((asset) => {
@@ -47,15 +49,15 @@ export default function App() {
       const { result } = await fakeFetchCrypto();
       const assets = await FetchAssets();
 
-      setMyCoin(mapAssets(assets, result));
+      setMyCoin(mapAssets(myCrypt, result));
       setCrypto(result);
       setIsLoading(false);
     }
     preload();
-  }, []);
+  }, [myCrypt]);
   return (
     <Layout>
-      <AppHeader crypto={crypto} addAsset={addAsset} />
+      <AppHeader crypto={crypto} />
       <Layout>
         <AppContent crypto={crypto} myCoin={myCoin} />
         <AppSider isLoading={isLoading} myCoin={myCoin} />

@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { FetchAssets, fakeFetchCrypto } from "../../api";
 import { capitalize, percentDifference } from "../../utils";
 import { Spin } from "antd";
+import { useSelector } from "react-redux";
+import { IMyCoin } from "../../interfaces";
 
 const siderStyle: React.CSSProperties = {
   textAlign: "center",
@@ -13,6 +15,8 @@ const siderStyle: React.CSSProperties = {
 };
 
 export default function AppSider({ isLoading, myCoin }) {
+  // const myCrypt = useSelector((state: IMyCoin) => state.myCrypto);
+  // console.log(myCoin);
   if (isLoading) return <Spin fullscreen />;
   return (
     <Layout.Sider width="25%" style={siderStyle}>
