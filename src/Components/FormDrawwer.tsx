@@ -53,12 +53,17 @@ const initialState: ICoin = {
   explorers: [],
 };
 
-const FormDrawwer = ({ crypto, onClose, addAsset }) => {
-  const [nameCoin, setNameCoin] = useState("");
+const FormDrawwer = ({
+  crypto,
+  onClose,
+  submitted,
+  setSubmitted,
+  nameCoin,
+  setNameCoin,
+}) => {
   const [coin, setCoin] = useState<ICoin>(initialState);
-  const [submitted, setSubmitted] = useState(false);
   const myCrypt = useSelector((state: IMyCoin) => state.myCrypto);
-  console.log(myCrypt);
+  // console.log(myCrypt);
 
   const assetRef = useRef();
   const [form] = Form.useForm();
@@ -96,6 +101,7 @@ const FormDrawwer = ({ crypto, onClose, addAsset }) => {
     dispatch(addMyCrypto(newAsset));
     assetRef.current = newAsset;
     setSubmitted(true);
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo: any) => {

@@ -1,7 +1,6 @@
 import { Button, Drawer, Modal, Select, Space } from "antd";
 import { Header } from "antd/es/layout/layout";
 import React, { useEffect, useState } from "react";
-import type { SelectProps } from "antd";
 import { cryptoData } from "../../data";
 import FormDrawwer from "../FormDrawwer";
 import CoinInfoModal from "../CoinInfoModal";
@@ -17,9 +16,11 @@ const headerStyle: React.CSSProperties = {
   backgroundColor: "#223344",
 };
 
-export default function AppHeader({ crypto, addAsset }) {
+export default function AppHeader({ crypto }) {
   const [select, setSelect] = useState(false);
+  const [nameCoinModal, setNameCoinModal] = useState("");
   const [nameCoin, setNameCoin] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openDrawwer, setOpenDrawwer] = useState(false);
 
@@ -34,7 +35,7 @@ export default function AppHeader({ crypto, addAsset }) {
   }, []);
 
   const handdleSelect = (value) => {
-    setNameCoin(crypto.find((c) => c.name === value));
+    setNameCoinModal(crypto.find((c) => c.name === value));
     setIsModalOpen(true);
   };
 
@@ -52,6 +53,8 @@ export default function AppHeader({ crypto, addAsset }) {
 
   const onClose = () => {
     setOpenDrawwer(false);
+    setSubmitted(false);
+    setNameCoin("");
   };
   return (
     <>
@@ -62,7 +65,7 @@ export default function AppHeader({ crypto, addAsset }) {
         onCancel={handleCancel}
         footer={null}
       >
-        <CoinInfoModal nameCoin={nameCoin} />
+        <CoinInfoModal nameCoin={nameCoinModal} />
       </Modal>
       <Drawer
         title="Add Asset"
@@ -70,7 +73,14 @@ export default function AppHeader({ crypto, addAsset }) {
         open={openDrawwer}
         size="large"
       >
-        <FormDrawwer crypto={crypto} onClose={onClose} addAsset={addAsset} />
+        <FormDrawwer
+          crypto={crypto}
+          submitted={submitted}
+          setSubmitted={setSubmitted}
+          onClose={onClose}
+          nameCoin={nameCoin}
+          setNameCoin={setNameCoin}
+        />
       </Drawer>
       <Header style={headerStyle}>
         <Select

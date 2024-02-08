@@ -22,10 +22,9 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [crypto, setCrypto] = useState([]);
   const [myCoin, setMyCoin] = useState<IMyCoinFull[]>([initialState]);
-  console.log(myCoin);
-  function addAsset(newAsset: IMyCoinFull) {
-    setMyCoin((prev) => mapAssets([...prev, newAsset], crypto));
-  }
+  // function addAsset(newAsset: IMyCoinFull) {
+  //   setMyCoin((prev) => mapAssets([...prev, newAsset], crypto));
+  // }
 
   function mapAssets(assets, result) {
     return assets.map((asset) => {
@@ -55,7 +54,7 @@ export default function App() {
   }, []);
   return (
     <Layout>
-      <AppHeader crypto={crypto} addAsset={addAsset} />
+      <AppHeader crypto={crypto} />
       <Layout>
         <AppContent crypto={crypto} myCoin={myCoin} />
         <AppSider isLoading={isLoading} myCoin={myCoin} />
