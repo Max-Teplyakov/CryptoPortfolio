@@ -37,8 +37,10 @@ const CryptoSlice = createSlice({
         };
       }
     },
-    removeMyCrypto(state, action: PayloadAction<IMyCoin>) {
-      const index = state.myCrypto.findIndex((n) => n.id === action.payload.id);
+    removeMyCrypto(state, action: PayloadAction<string>) {
+      const index = state.myCrypto.findIndex(
+        (coin) => coin.id === action.payload
+      );
       if (index !== -1) {
         state.myCrypto.splice(index, 1);
       }
