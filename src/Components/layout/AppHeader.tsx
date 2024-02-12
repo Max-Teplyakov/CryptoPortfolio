@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { cryptoData } from "../../data";
 import FormDrawwer from "../FormDrawwer";
 import CoinInfoModal from "../CoinInfoModal";
+
 const headerStyle: React.CSSProperties = {
   display: "flex",
   justifyContent: "space-between",

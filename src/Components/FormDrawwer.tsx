@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { cryptoData } from "../data";
 import { ICoin, IMyCoin } from "../interfaces";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { addMyCrypto } from "../store/CryptoSlice";
 import { useSelector } from "react-redux";
 
@@ -62,12 +62,11 @@ const FormDrawwer = ({
   setNameCoin,
 }) => {
   const [coin, setCoin] = useState<ICoin>(initialState);
-  const myCrypt = useSelector((state: IMyCoin) => state.myCrypto);
-  // console.log(myCrypt);
-
   const assetRef = useRef();
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
+  const myCrypt = useAppSelector((state) => state.myCrypto.myCrypto);
+  console.log(myCrypt);
 
   const handdleSelect = (value) => {
     setCoin(crypto.find((c) => c.name === value));
@@ -96,16 +95,11 @@ const FormDrawwer = ({
       price: values.price,
       date: values.date?.$d ?? new Date(),
     };
-    console.log(newAsset);
-    // addAsset(newAsset);
+
     dispatch(addMyCrypto(newAsset));
     assetRef.current = newAsset;
     setSubmitted(true);
     form.resetFields();
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
 
   if (submitted) {

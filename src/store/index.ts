@@ -14,6 +14,7 @@ import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   myCrypto: CryptoSlice,
+  removeMyCrypto: CryptoSlice,
 });
 
 const persistConfig = {
