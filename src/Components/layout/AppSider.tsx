@@ -10,6 +10,8 @@ import { capitalize, percentDifference } from "../../utils";
 import { Spin } from "antd";
 import { useSelector } from "react-redux";
 import { IMyCoin } from "../../interfaces";
+import { useAppDispatch } from "../../hooks";
+import { removeMyCrypto } from "../../store/CryptoSlice";
 
 const siderStyle: React.CSSProperties = {
   textAlign: "center",
@@ -21,14 +23,21 @@ const siderStyle: React.CSSProperties = {
 export default function AppSider({ isLoading, myCoin }) {
   // const myCrypt = useAppSelector((state: IMyCoin) => state.myCrypto);
   // console.log(myCoin);
+  const dispatch = useAppDispatch();
+
+  // Удаление Моей Монеты из стора
+  const handleRemoveCard = (id) => {
+    dispatch(removeMyCrypto(id));
+  };
+
   if (isLoading) return <Spin fullscreen />;
   return (
     <Layout.Sider width="25%" style={siderStyle}>
-      {myCoin?.map((coin, i) => (
+      {myCoin?.map((coin) => (
         <Card
-          key={i}
+          key={coin.id}
           style={{ marginTop: "1rem" }}
-          extra={<DeleteOutlined />}
+          extra={<DeleteOutlined onClick={() => handleRemoveCard(coin.id)} />}
           title={capitalize(coin.id)}
         >
           <Statistic
