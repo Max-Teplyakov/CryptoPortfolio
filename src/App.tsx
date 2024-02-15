@@ -32,7 +32,7 @@ export default function App() {
 
   function mapAssets(myCrypt, cryptoResult) {
     return myCrypt.map((asset) => {
-      const coin = cryptoResult.find((c) => c.id === asset.id);
+      const coin = cryptoResult?.find((c) => c.id === asset.id);
       return {
         grow: asset.price < coin.price,
         growPrecent: percentDifference(asset.price, coin.price),
@@ -63,7 +63,7 @@ export default function App() {
     <Layout>
       <AppHeader crypto={crypto} />
       <Layout>
-        <AppContent crypto={crypto} myCoin={myCoin} />
+        <AppContent myCoin={myCoin} />
         <AppSider isLoading={isLoading} myCoin={myCoin} />
       </Layout>
     </Layout>

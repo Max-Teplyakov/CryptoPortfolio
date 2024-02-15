@@ -2,6 +2,7 @@ import { Layout, Typography } from "antd";
 import React from "react";
 import PortfolioChart from "../PortfolioChart";
 import AssetsTable from "../AssetsTable";
+import { useAppSelector } from "../../hooks";
 
 const contentStyle: React.CSSProperties = {
   textAlign: "center",
@@ -11,8 +12,12 @@ const contentStyle: React.CSSProperties = {
   backgroundColor: "#223344",
 };
 
-export default function AppContent({ crypto, myCoin }) {
-  const cryptoPriceMap = crypto.reduce((acc, item) => {
+export default function AppContent({ myCoin }) {
+  const cryptoResult = useAppSelector(
+    (state) => state.cryptoResult.cryptoResult
+  );
+
+  const cryptoPriceMap = cryptoResult?.reduce((acc, item) => {
     acc[item.id] = item.price;
     return acc;
   }, {});

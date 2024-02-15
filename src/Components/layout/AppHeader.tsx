@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { cryptoData } from "../../data";
 import FormDrawwer from "../FormDrawwer";
 import CoinInfoModal from "../CoinInfoModal";
+import { useAppSelector } from "../../hooks";
+import { ICoin } from "../../interfaces";
 
 const headerStyle: React.CSSProperties = {
   display: "flex",
@@ -17,14 +19,41 @@ const headerStyle: React.CSSProperties = {
   backgroundColor: "#223344",
 };
 
+const initialState: ICoin = {
+  id: "",
+  icon: "",
+  name: "",
+  symbol: "",
+  rank: 0,
+  price: 0,
+  priceBtc: 0,
+  volume: 0,
+  marketCap: 0,
+  availableSupply: 0,
+  totalSupply: 0,
+  priceChange1h: 0,
+  priceChange1d: 0,
+  priceChange1w: 0,
+  redditUrl: "",
+  websiteUrl: "",
+  twitterUrl: "",
+  explorers: [],
+};
+
 export default function AppHeader({ crypto }) {
   const [select, setSelect] = useState(false);
-  const [nameCoinModal, setNameCoinModal] = useState("");
+  const [nameCoinModal, setNameCoinModal] = useState<ICoin | undefined>(
+    initialState
+  );
   const [nameCoin, setNameCoin] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openDrawwer, setOpenDrawwer] = useState(false);
 
+  const cryptoResult = useAppSelector(
+    (state) => state.cryptoResult.cryptoResult
+  );
+  console.log(nameCoinModal);
   useEffect(() => {
     const keyPress = (event) => {
       if (event.key === "/") {
@@ -36,7 +65,7 @@ export default function AppHeader({ crypto }) {
   }, []);
 
   const handdleSelect = (value) => {
-    setNameCoinModal(crypto.find((c) => c.name === value));
+    setNameCoinModal(cryptoResult?.find((c) => c.name === value));
     setIsModalOpen(true);
   };
 
