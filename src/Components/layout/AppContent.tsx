@@ -1,10 +1,7 @@
 import { Layout, Typography } from "antd";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addMyCrypto } from "../../store/CryptoSlice";
 import PortfolioChart from "../PortfolioChart";
 import AssetsTable from "../AssetsTable";
-import { useAppDispatch } from "../../hooks";
 
 const contentStyle: React.CSSProperties = {
   textAlign: "center",
@@ -22,7 +19,7 @@ export default function AppContent({ crypto, myCoin }) {
 
   return (
     <Layout.Content style={contentStyle}>
-      <Typography.Title>
+      <Typography.Title style={{ color: "white", marginTop: "2rem" }}>
         Portfolio:{" "}
         {myCoin
           .map((asset) => {

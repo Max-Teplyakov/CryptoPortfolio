@@ -4,12 +4,9 @@ import {
   ArrowUpOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
-import { FetchAssets, fakeFetchCrypto } from "../../api";
-import { capitalize, percentDifference } from "../../utils";
+import React from "react";
+import { capitalize } from "../../utils";
 import { Spin } from "antd";
-import { useSelector } from "react-redux";
-import { IMyCoin } from "../../interfaces";
 import { useAppDispatch } from "../../hooks";
 import { removeMyCrypto } from "../../store/CryptoSlice";
 
@@ -21,8 +18,6 @@ const siderStyle: React.CSSProperties = {
 };
 
 export default function AppSider({ isLoading, myCoin }) {
-  // const myCrypt = useAppSelector((state: IMyCoin) => state.myCrypto);
-  // console.log(myCoin);
   const dispatch = useAppDispatch();
 
   // Удаление Моей Монеты из стора
@@ -37,7 +32,12 @@ export default function AppSider({ isLoading, myCoin }) {
         <Card
           key={coin.id}
           style={{ marginTop: "1rem" }}
-          extra={<DeleteOutlined onClick={() => handleRemoveCard(coin.id)} />}
+          extra={
+            <DeleteOutlined
+              style={{ fontSize: "18px" }}
+              onClick={() => handleRemoveCard(coin.id)}
+            />
+          }
           title={capitalize(coin.id)}
         >
           <Statistic

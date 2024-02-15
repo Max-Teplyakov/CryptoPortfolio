@@ -11,10 +11,9 @@ import {
   Typography,
 } from "antd";
 import { cryptoData } from "../data";
-import { ICoin, IMyCoin } from "../interfaces";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { ICoin } from "../interfaces";
+import { useAppDispatch } from "../hooks";
 import { addMyCrypto } from "../store/CryptoSlice";
-import { useSelector } from "react-redux";
 
 type FieldType = {
   amount?: string;
@@ -65,8 +64,6 @@ const FormDrawwer = ({
   const assetRef = useRef();
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
-  const myCrypt = useAppSelector((state) => state.myCrypto.myCrypto);
-  console.log(myCrypt);
 
   const handdleSelect = (value) => {
     setCoin(crypto.find((c) => c.name === value));
