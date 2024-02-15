@@ -22,7 +22,7 @@ export default function AppContent({ crypto, myCoin }) {
 
   return (
     <Layout.Content style={contentStyle}>
-      <Typography.Title>
+      <Typography.Title style={{ color: "white", marginTop: "2rem" }}>
         Portfolio:{" "}
         {myCoin
           .map((asset) => {

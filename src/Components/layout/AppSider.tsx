@@ -37,7 +37,12 @@ export default function AppSider({ isLoading, myCoin }) {
         <Card
           key={coin.id}
           style={{ marginTop: "1rem" }}
-          extra={<DeleteOutlined onClick={() => handleRemoveCard(coin.id)} />}
+          extra={
+            <DeleteOutlined
+              style={{ fontSize: "18px" }}
+              onClick={() => handleRemoveCard(coin.id)}
+            />
+          }
           title={capitalize(coin.id)}
         >
           <Statistic

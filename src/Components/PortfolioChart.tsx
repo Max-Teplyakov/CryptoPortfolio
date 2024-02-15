@@ -5,6 +5,7 @@ import { Pie } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PortfolioChart({ myCoin }) {
+  console.log(myCoin);
   const data = {
     labels: myCoin.map((item) => item.name),
     datasets: [
