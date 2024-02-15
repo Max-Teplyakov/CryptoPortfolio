@@ -4,12 +4,9 @@ import {
   ArrowUpOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
-import { FetchAssets, fakeFetchCrypto } from "../../api";
-import { capitalize, percentDifference } from "../../utils";
+import React from "react";
+import { capitalize } from "../../utils";
 import { Spin } from "antd";
-import { useSelector } from "react-redux";
-import { IMyCoin } from "../../interfaces";
 import { useAppDispatch } from "../../hooks";
 import { removeMyCrypto } from "../../store/CryptoSlice";
 
@@ -21,8 +18,6 @@ const siderStyle: React.CSSProperties = {
 };
 
 export default function AppSider({ isLoading, myCoin }) {
-  // const myCrypt = useAppSelector((state: IMyCoin) => state.myCrypto);
-  // console.log(myCoin);
   const dispatch = useAppDispatch();
 
   // Удаление Моей Монеты из стора

@@ -1,10 +1,7 @@
 import { Layout, Typography } from "antd";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addMyCrypto } from "../../store/CryptoSlice";
 import PortfolioChart from "../PortfolioChart";
 import AssetsTable from "../AssetsTable";
-import { useAppDispatch } from "../../hooks";
 
 const contentStyle: React.CSSProperties = {
   textAlign: "center",

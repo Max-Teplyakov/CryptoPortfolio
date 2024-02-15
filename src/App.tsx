@@ -3,11 +3,10 @@ import React, { useEffect, useState } from "react";
 import AppHeader from "./Components/layout/AppHeader";
 import AppContent from "./Components/layout/AppContent";
 import AppSider from "./Components/layout/AppSider";
-import { FetchAssets, fakeFetchCrypto } from "./api";
 import { percentDifference } from "./utils";
-import { IMyCoin, IMyCoinFull } from "./interfaces";
-import { useSelector } from "react-redux";
-import { useAppSelector } from "./hooks";
+import { ICoin, IMyCoinFull } from "./interfaces";
+import { useAppDispatch, useAppSelector } from "./hooks";
+import { fetchResultCryptoMarcet } from "./store/ResultCryptoMarcetSlice";
 
 const initialState: IMyCoinFull = {
   id: "",
@@ -22,14 +21,18 @@ const initialState: IMyCoinFull = {
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const [crypto, setCrypto] = useState([]);
+  const [crypto, setCrypto] = useState<ICoin[]>([]);
   const [myCoin, setMyCoin] = useState<IMyCoinFull[]>([initialState]);
 
+  const dispatch = useAppDispatch();
   const myCrypt = useAppSelector((state) => state.myCrypto.myCrypto);
+  const cryptoResult = useAppSelector(
+    (state) => state.cryptoResult.cryptoResult
+  );
 
-  function mapAssets(myCrypt, result) {
+  function mapAssets(myCrypt, cryptoResult) {
     return myCrypt.map((asset) => {
-      const coin = result?.find((c) => c.id === asset.id);
+      const coin = cryptoResult.find((c) => c.id === asset.id);
       return {
         grow: asset.price < coin.price,
         growPrecent: percentDifference(asset.price, coin.price),
@@ -42,12 +45,15 @@ export default function App() {
   }
 
   useEffect(() => {
+    dispatch(fetchResultCryptoMarcet());
+  }, [dispatch]);
+
+  useEffect(() => {
     async function preload() {
       setIsLoading(true);
-      const { result } = await fakeFetchCrypto();
-      // const assets = await FetchAssets();
-      setMyCoin(mapAssets(myCrypt, result));
-      setCrypto(result);
+
+      setMyCoin(mapAssets(myCrypt, cryptoResult));
+      setCrypto(cryptoResult);
       setIsLoading(false);
     }
     preload();

@@ -1,20 +1,33 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICoin } from "../interfaces";
 
-interface IMyCrypto {
-  myCrypto: ICoin[];
+interface IMeta {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  itemCount: number;
+  limit: number;
+  page: number;
+  pageCount: number;
+}
+
+interface ICryptoRes {
+  result: ICoin[];
+  meta: IMeta;
+}
+
+interface ICrypto {
+  cryptoResult: ICoin[];
   loading: boolean;
   error: string | null;
 }
-const initialState: IMyCrypto = {
-  myCrypto: [],
+const initialState: ICrypto = {
+  cryptoResult: [],
   loading: false,
   error: null,
 };
 
-// export const fetchNewsItemsTheme = createAsyncThunk<NewsItem[], number, { rejectValue: string }>(
 export const fetchResultCryptoMarcet = createAsyncThunk<
-  ICoin[],
+  ICryptoRes,
   undefined,
   { rejectValue: string }
 >("fetchResultCryptoMarcet", async function (_, { rejectWithValue }) {
@@ -32,22 +45,21 @@ export const fetchResultCryptoMarcet = createAsyncThunk<
   return data;
 });
 
-const ResultCryptoMarcet = createSlice({
-  name: "crypto",
+const ResultCryptoMarcetSlice = createSlice({
+  name: "cryptoResult",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchResultCryptoMarcet.pending, (state, action) => {
+      .addCase(fetchResultCryptoMarcet.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchResultCryptoMarcet.fulfilled, (state, action) => {
-        state.myCrypto = action.payload;
+        state.cryptoResult = action.payload.result;
         state.loading = false;
       });
   },
 });
 
-export default ResultCryptoMarcet.reducer;
-// export const { addMyCrypto, removeMyCrypto } = ResultCryptoMarcet.actions;
+export default ResultCryptoMarcetSlice.reducer;

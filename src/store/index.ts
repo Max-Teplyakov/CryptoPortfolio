@@ -11,10 +11,12 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import ResultCryptoMarcet from "./ResultCryptoMarcetSlice";
 
 const rootReducer = combineReducers({
   myCrypto: CryptoSlice,
   removeMyCrypto: CryptoSlice,
+  cryptoResult: ResultCryptoMarcet,
 });
 
 const persistConfig = {
